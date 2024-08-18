@@ -6,6 +6,7 @@ import com.jzo2o.common.expcetions.BadRequestException;
 import com.jzo2o.customer.mapper.ServeProviderMapper;
 import com.jzo2o.customer.model.domain.ServeProvider;
 import com.jzo2o.customer.model.dto.request.InstitutionRegisterReqDTO;
+import com.jzo2o.customer.model.dto.request.InstitutionResetPasswordReqDTO;
 import com.jzo2o.customer.service.IRegisterService;
 import com.jzo2o.customer.service.IServeProviderSettingsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -56,5 +57,19 @@ public class IRegisterServiceImpl extends ServiceImpl<ServeProviderMapper, Serve
         baseMapper.insert(register);
         serveProviderSettingsService.add(register.getId(), register.getType());
         return register;
+    }
+
+    /**
+     * 忘记密码
+     * @param passwordReqDTO
+     * @return
+     */
+    @Override
+    public ServeProvider resetPwd(InstitutionResetPasswordReqDTO passwordReqDTO) {
+        ServeProvider serveProvider = lambdaQuery().eq(ServeProvider::getPhone, passwordReqDTO.getPhone()).one();
+        String newPwd = passwordEncoder.encode(passwordReqDTO.getPassword());
+        serveProvider.setPassword(newPwd);
+        baseMapper.updateById(serveProvider);
+        return serveProvider;
     }
 }
