@@ -41,8 +41,12 @@ public class CommonUserServiceImpl extends ServiceImpl<CommonUserMapper, CommonU
 
     @Override
     public CommonUser findByOpenId(String openId) {
-        return lambdaQuery().eq(CommonUser::getOpenId, openId)
-                .one();
+        LambdaQueryWrapper<CommonUser> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(CommonUser::getOpenId, openId);
+        CommonUser commonUser = commonUserMapper.selectOne(queryWrapper);
+        return commonUser;
+//        return lambdaQuery().eq(CommonUser::getOpenId, openId)
+//                .one();
     }
 
     /**
