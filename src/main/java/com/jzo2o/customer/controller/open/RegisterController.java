@@ -4,6 +4,7 @@ import com.jzo2o.common.model.Result;
 import com.jzo2o.customer.model.dto.request.InstitutionRegisterReqDTO;
 import com.jzo2o.customer.service.IRegisterService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +26,7 @@ public class RegisterController {
     @Resource
     private IRegisterService registerService;
 
+    @ApiOperation("新机构注册")
     @PostMapping("/institution/register")
     public Result register(@RequestBody InstitutionRegisterReqDTO registerDto) {
         Result<Object> result = new Result<>();

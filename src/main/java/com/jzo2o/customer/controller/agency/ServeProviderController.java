@@ -36,7 +36,7 @@ public class ServeProviderController {
         return serveProviderService.currentUserInfo();
     }
 
-
+    @ApiOperation("修改密码")
     @PostMapping("/institution/resetPassword")
     public Result resetPassword(@RequestBody InstitutionResetPasswordReqDTO passwordReqDTO) {
         Result<Object> result = new Result<>();
